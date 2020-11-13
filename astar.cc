@@ -166,8 +166,6 @@ void AStar::aStarSearch(vector<vector<Cell>> map, Pair src, Pair dest)
 							map[i + fila][j + col].SetParentActualY(j);
 							cout << "The destination cell is found\n";
 
-							cout << "ANTES";
-							cout << "HOLA";
 							TracePath(map, dest);
 							foundDest = true;
 

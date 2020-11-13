@@ -39,6 +39,11 @@ int main(int argc, char *argv[])
 		vector<vector<Cell>> map;
 		string heuristic_type;
 		int option_heuristic = 0;
+		int option_obstacles = 0;
+		double percentage = 0;
+		int x_random, y_random;
+		int obstacles_num;
+		int i = 0;
 
 		cout << "\nWelcome!";
 		while (option != 5)
@@ -86,25 +91,51 @@ int main(int argc, char *argv[])
 				break;
 
 			case 3:
-				more_obstacles = true;
 				do
 				{
-					cout << "Enter the obstacle position: \nx: ";
-					cin >> x_obs;
-					cout << "y: ";
-					cin >> y_obs;
-					cout << "\n";
+					cout << "Enter the way to enter obstacles:\nRandom - [1]\nManual - [2]\n";
+					cin >> option_obstacles;
+				} while (option_obstacles != 1 && option_obstacles != 2);
 
-					map[x_obs][y_obs].SetObstacle(true);
+				if (option_obstacles == 1) {
+					cout << "What percentage of obstacles do you want?\n";
+					cin >> percentage;
+
+					percentage = percentage/100;
+					obstacles_num = row * col * percentage;
+					
+					srand(time(NULL));
+					while (i < obstacles_num) {
+						x_random = (rand() % (row)); 
+						y_random = (rand() % (col)); 
+						cout << x_random << "y " << y_random << endl;
+						map[x_random][y_random].SetObstacle(true);
+						i++;
+					}
+					
+				}
+
+				if (option_obstacles == 2) {
+					more_obstacles = true;
 					do
 					{
-						cout << "Do you want to add more obstacles? y/n \n";
-						cin >> answer;
-					} while (answer != "y" && answer != "n");
+						cout << "Enter the obstacle position: \nx: ";
+						cin >> x_obs;
+						cout << "y: ";
+						cin >> y_obs;
+						cout << "\n";
 
-					if (answer == "n")
-						more_obstacles = false;
-				} while (more_obstacles);
+						map[x_obs][y_obs].SetObstacle(true);
+						do
+						{
+							cout << "Do you want to add more obstacles? y/n \n";
+							cin >> answer;
+						} while (answer != "y" && answer != "n");
+
+						if (answer == "n")
+							more_obstacles = false;
+					} while (more_obstacles);
+				}
 				break;
 
 			case 4:
