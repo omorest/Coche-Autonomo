@@ -105,10 +105,9 @@ int main(int argc, char *argv[])
 					obstacles_num = row * col * percentage;
 					
 					srand(time(NULL));
-					while (i < obstacles_num) {
+					while ((i < obstacles_num) && (obstacles_num <= ((row * col) - 2))) {
 						x_random = (rand() % (row)); 
 						y_random = (rand() % (col)); 
-						cout << x_random << "y " << y_random << endl;
 						map[x_random][y_random].SetObstacle(true);
 						i++;
 					}
