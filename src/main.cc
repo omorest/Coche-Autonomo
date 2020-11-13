@@ -15,9 +15,14 @@ int main(int argc, char *argv[])
 		is >> row >> col;
 
 		vector<vector<Cell>> map(row, vector<Cell>(col));
+    printMap(map);
 
 		is >> entry.first >> entry.second;
 		is >> exit.first >> exit.second;
+    map[entry.first][entry.second].SetEntry();
+    map[exit.first][exit.second].SetExit();
+
+    printMap(map);
 
 		while (!is.eof())
 		{
@@ -25,9 +30,13 @@ int main(int argc, char *argv[])
 			map[row_obstacle][col_obstacle].SetObstacle(true);
 		}
 
+    printMap(map);
+
 		is.close();
 		AStar algorithm("euclidean");
 		algorithm.aStarSearch(map, entry, exit);
+
+    printMap(map);
 	}
 
 	//Entrada de datos manual
@@ -161,6 +170,7 @@ int main(int argc, char *argv[])
 				algorithm.setHeuristic(heuristic_type);
 				algorithm.aStarSearch(map, entry, exit);
 
+
 				break;
 
 			case 5:
@@ -186,12 +196,14 @@ int main(int argc, char *argv[])
 
 
 void printMap(vector<vector<Cell>> map) {
+  cout << endl << endl;
 	for (int i = 0; i < map.size(); i++) {
 	  for (int j = 0; j < map[i].size(); j++) {
 		cout << map[i][j].GetEmoji();
 	  }
 	  cout << endl;
 	}
+  cout << endl;
 	
 	
 }
