@@ -3,7 +3,7 @@
 
 
 AStar::AStar(string heuristicType){
-	heuristicType = heuristicType;
+	heuristic_ = heuristicType;
 //	row_ = row;
 //	col_ = col;
 }
@@ -20,13 +20,10 @@ bool AStar::isValid(int row, int col)
 
 // A Utility Function to check whether the given cell is
 // blocked or not
-bool AStar::isUnBlocked(int grid[][COL], int row, int col)
+bool AStar::isBlocked(Cell grid[][COL], int row, int col)
 {
 	// Returns true if the cell is not blocked else false
-	if (grid[row][col] == 1)
-		return (true);
-	else
-		return (false);
+	return (grid[row][col].isObstacle());
 }
 
 // A Utility Function to check whether destination cell has
@@ -52,13 +49,14 @@ double AStar::calculateHValue(int row, int col, Pair dest)
 
 // A Utility Function to trace the path from the source
 // to destination
-void AStar::TracePath(Cell map[][COL], Pair dest)
+stack<Pair> AStar::TracePath(Cell map[][COL], Pair dest)
 {
 	cout << "\nThe Path is ";
 	int row = dest.first;
 	int col = dest.second;
 
 	stack<Pair> Path;
+	stack<Pair> Path_copy;
 
 	while (!(map[row][col].GetParentActualX() == row && map[row][col].GetParentActualY() == col))
 	{
@@ -70,6 +68,7 @@ void AStar::TracePath(Cell map[][COL], Pair dest)
 	}
 
 	Path.push(make_pair(row, col));
+	Path_copy = Path; 
 	while (!Path.empty())
 	{
 		pair<int, int> p = Path.top();
@@ -77,13 +76,13 @@ void AStar::TracePath(Cell map[][COL], Pair dest)
 		cout << "-> (" << p.first << ", " << p.second << ")";
 	}
 
-	return;
+	return Path_copy;
 }
 
 // A Function to find the shortest path between
 // a given source cell to a destination cell according
 // to A* Search Algorithm
-void AStar::aStarSearch(int grid[][COL], Pair src, Pair dest)
+void AStar::aStarSearch(Cell map[][COL], Pair src, Pair dest)
 {
 	// If the source is out of range
 	if (isValid(src.first, src.second) == false)
@@ -100,8 +99,8 @@ void AStar::aStarSearch(int grid[][COL], Pair src, Pair dest)
 	}
 
 	// Either the source or the destination is blocked
-	if (isUnBlocked(grid, src.first, src.second) == false ||
-		isUnBlocked(grid, dest.first, dest.second) == false)
+	if (isBlocked(map, src.first, src.second) == true ||
+		isBlocked(map, dest.first, dest.second) == true)
 	{
 		printf("Source or the destination is blocked\n");
 		return;
@@ -122,7 +121,7 @@ void AStar::aStarSearch(int grid[][COL], Pair src, Pair dest)
 
 	// Declare a 2D array of structure to hold the details
 	//of that cell
-	Cell map[ROW][COL];
+	//Cell map[ROW][COL];
 
 	int i, j;
 
@@ -192,7 +191,7 @@ void AStar::aStarSearch(int grid[][COL], Pair src, Pair dest)
 						}
 
 						else if (closedList[i + fila][j + col] == false &&
-								 isUnBlocked(grid, i + fila, j + col) == true)
+								 isBlocked(map, i + fila, j + col) == false)
 						{
 							gNew = map[i][j].GetG() + 1.0;
 							hNew = calculateHValue(i + fila, j + col, dest);

@@ -24,9 +24,9 @@ public:
 	AStar(string heuristic = "manhattan");
 
 	bool isValid(int row, int col);
-	bool isUnBlocked(int grid[][COL], int row, int col);
+	bool isBlocked(Cell grid[][COL], int row, int col);
 	bool isDestination(int row, int col, Pair dest);
 	double calculateHValue(int row, int col, Pair dest);
-	void TracePath(Cell map[][COL], Pair dest);
-	void aStarSearch(int grid[][COL], Pair src, Pair dest);
+	stack<Pair> TracePath(Cell map[][COL], Pair dest);
+	void aStarSearch(Cell grid[][COL], Pair src, Pair dest);
 };

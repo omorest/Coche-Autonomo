@@ -49,3 +49,14 @@ void Cell::SetH(double new_h)
 {
     h_ = new_h;
 }
+
+
+
+bool Cell::isObstacle() {
+    return obstacle_;
+}
+
+
+void Cell::SetObstacle(bool new_obstacle) {
+    obstacle_ = new_obstacle;
+}
