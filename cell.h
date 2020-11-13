@@ -15,8 +15,10 @@ private:
   double h_;
   double f_;
   bool obstacle_;
+  bool is_entry_;
+  bool is_exit_;
   string emoji_;
-
+  
 public:
   Cell()
   {
@@ -26,6 +28,8 @@ public:
     h_ = FLT_MAX;
     f_ = FLT_MAX;
     obstacle_ = false;
+    is_entry_ = false;
+    is_exit_  = false;
     emoji_ = "⬜";
   };
 
@@ -44,4 +48,6 @@ public:
   void SetF(double new_f);
   void SetH(double new_h);
   void SetObstacle(bool new_obstacle);
+  void SetEntry();
+  void SetExit();
 };

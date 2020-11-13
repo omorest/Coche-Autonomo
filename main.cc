@@ -1,5 +1,6 @@
 #include "./astar.h"
 
+void printMap(vector<vector<Cell>> map);
 int main(int argc, char *argv[])
 {
 	int row, col;
@@ -76,6 +77,8 @@ int main(int argc, char *argv[])
 					map[i].resize(col);
 				}
 
+				printMap(map);
+
 				break;
 
 			case 2:
@@ -88,6 +91,11 @@ int main(int argc, char *argv[])
 				cout << "\nCol: ";
 				cin >> exit.second;
 				cout << "\n";
+				map[entry.first][entry.second].SetEntry();
+				map[exit.first][exit.second].SetExit();
+
+				printMap(map);
+
 				break;
 
 			case 3:
@@ -135,6 +143,8 @@ int main(int argc, char *argv[])
 							more_obstacles = false;
 					} while (more_obstacles);
 				}
+
+				printMap(map);
 				break;
 
 			case 4:
@@ -172,4 +182,16 @@ int main(int argc, char *argv[])
 	//Pair src = make_pair(0, 0);
 	//
 	//Pair dest = make_pair(9, 9);
+}
+
+
+void printMap(vector<vector<Cell>> map) {
+	for (int i = 0; i < map.size(); i++) {
+	  for (int j = 0; j < map[i].size(); j++) {
+		cout << map[i][j].GetEmoji();
+	  }
+	  cout << endl;
+	}
+	
+	
 }

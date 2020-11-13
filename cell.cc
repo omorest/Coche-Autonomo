@@ -58,11 +58,25 @@ bool Cell::isObstacle() {
 
 
 void Cell::SetObstacle(bool new_obstacle) {
-    obstacle_ = new_obstacle;
-    emoji_    = "🚧";
+    if (!is_entry_ || !is_exit_) {
+        obstacle_ = new_obstacle;
+        emoji_    = "⬛";
+    }
 }
 
 
 string Cell::GetEmoji() {
     return emoji_;
+}
+
+
+void Cell::SetEntry() {
+    is_entry_ = true;
+    emoji_ = "🟩";
+}
+
+
+void Cell::SetExit() {
+    is_exit_ = true;
+    emoji_ = "🟥";
 }
