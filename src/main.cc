@@ -164,11 +164,11 @@ int main(int argc, char *argv[])
 				break;
 
 			case 5:
-				cout << "Good bye!\n";
+				exit;
 				break;
 
 			default:
-				cout << "Introduce a valid option: 1, 2, 3, 4.\n";
+				cout << "Introduce a valid option: 1, 2, 3, 4, 5.\n";
 			}
 		}
 	}
