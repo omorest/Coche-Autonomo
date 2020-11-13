@@ -1,4 +1,4 @@
-#include "cell.h"
+#include "../include/cell.h"
 
 int Cell::GetParentActualX()
 {

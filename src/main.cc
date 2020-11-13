@@ -1,4 +1,4 @@
-#include "./astar.h"
+#include "../include/astar.h"
 
 void printMap(vector<vector<Cell>> map);
 int main(int argc, char *argv[])
