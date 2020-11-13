@@ -1,6 +1,10 @@
 #pragma once
 
 #include <cfloat>
+#include <iostream>
+#include <string>
+
+using namespace std;
 
 class Cell
 {
@@ -11,6 +15,7 @@ private:
   double h_;
   double f_;
   bool obstacle_;
+  string emoji_;
 
 public:
   Cell()
@@ -21,6 +26,7 @@ public:
     h_ = FLT_MAX;
     f_ = FLT_MAX;
     obstacle_ = false;
+    emoji_ = "⬜";
   };
 
   int GetParentActualX();
@@ -30,6 +36,7 @@ public:
   double GetF();
   double GetH();
   bool isObstacle();
+  string GetEmoji();
 
   void SetParentActualX(int new_parent_i);
   void SetParentActualY(int new_parent_j);

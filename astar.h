@@ -1,13 +1,18 @@
 #pragma once
 
+#define ROW 200
+#define COL 200
+
 #include "cell.h"
+
 #include <bits/stdc++.h>
 #include <cmath>
 #include <iostream>
+#include <fstream>
+#include <string>
+
 using namespace std;
 
-#define ROW 10
-#define COL 10
 
 typedef pair<int, int> Pair;
 typedef pair<double, pair<int, int>> pPair;
@@ -21,12 +26,13 @@ private:
 
 public:
 	AStar() {};
-	AStar(string heuristic = "manhattan");
+	AStar(string heuristic);
 
 	bool isValid(int row, int col);
-	bool isBlocked(Cell grid[][COL], int row, int col);
+	bool isBlocked(vector<vector<Cell>> map, int row, int col);
 	bool isDestination(int row, int col, Pair dest);
 	double calculateHValue(int row, int col, Pair dest);
-	stack<Pair> TracePath(Cell map[][COL], Pair dest);
-	void aStarSearch(Cell grid[][COL], Pair src, Pair dest);
+	stack<Pair> TracePath(vector<vector<Cell>> map, Pair dest);
+	void aStarSearch(vector<vector<Cell>> map, Pair src, Pair dest);
+	void setHeuristic(string heuristicType);
 };

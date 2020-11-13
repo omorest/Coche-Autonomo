@@ -59,4 +59,10 @@ bool Cell::isObstacle() {
 
 void Cell::SetObstacle(bool new_obstacle) {
     obstacle_ = new_obstacle;
+    emoji_    = "🚧";
+}
+
+
+string Cell::GetEmoji() {
+    return emoji_;
 }
