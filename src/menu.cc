@@ -219,10 +219,13 @@ void CreateObastacles(vector<vector<Cell>>& map, int row, int col) {
 
   do
   {
-    cout << "Enter the way to enter obstacles:\nRandom - [1]\nManual - [2]\n";
+    cout << "Enter the way to enter obstacles:\n[0] - Without Obstacles\n[1] - Random \n[2] - Manual\n";
     cin >> option_obstacles;
-  } while (option_obstacles != 1 && option_obstacles != 2);
+  } while (option_obstacles != 0 && option_obstacles != 1 && option_obstacles != 2);
 
+  if (option_obstacles == 0)
+    return;  
+  
   if (option_obstacles == 1) 
     RandomObstacles(map, row, col);
 
