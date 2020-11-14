@@ -30,13 +30,13 @@ void FileReader(string file) {
   AStar algorithm("euclidean");
   algorithm.aStarSearch(map, entry, exit);
 
-  printMap(map);  
+  printMap(map);
 }
 
 
 
 void ManualMode() {
-  int row, col;  
+  int row, col;
 	Pair entry, exit;
 	AStar algorithm("manhattan");
 
@@ -56,7 +56,6 @@ void ManualMode() {
   cout << "\nWelcome!";
   while (option != 5)
   {
-
     cout << "\n------------------------------------------------------------------------------\n";
     cout << "\nPlease enter some information of the map:\n";
     cout << "1. Dimensions\n";
@@ -71,37 +70,12 @@ void ManualMode() {
     switch (option)
     {
     case 1:
-      map.clear();
-      cout << "Enter the number of the rows: ";
-      cin >> row;
-      map.resize(row);
-
-      cout << "Enter the number of the columns: ";
-      cin >> col;
-      cout << "\n";
-
-      for (int i = 0; i < row; i++)
-      {
-        map[i].resize(col);
-      }
-
+      createGrid(map, row, col);
       printMap(map);
-
       break;
 
     case 2:
-      cout << "Enter the position of the entry: \nRow: ";
-      cin >> entry.first;
-      cout << "\nCol: ";
-      cin >> entry.second;
-      cout << "\nEnter the position of the exit: \nRow: ";
-      cin >> exit.first;
-      cout << "\nCol: ";
-      cin >> exit.second;
-      cout << "\n";
-      map[entry.first][entry.second].SetEntry();
-      map[exit.first][exit.second].SetExit();
-
+      setEntryExit(map, entry, exit);
       printMap(map);
 
       break;
@@ -119,15 +93,15 @@ void ManualMode() {
 
         percentage = percentage/100;
         obstacles_num = row * col * percentage;
-        
+
         srand(time(NULL));
         while ((i < obstacles_num) && (obstacles_num <= ((row * col) - 2))) {
-          x_random = (rand() % (row)); 
-          y_random = (rand() % (col)); 
+          x_random = (rand() % (row));
+          y_random = (rand() % (col));
           map[x_random][y_random].SetObstacle(true);
           i++;
         }
-        
+
       }
 
       if (option_obstacles == 2) {
@@ -180,6 +154,40 @@ void ManualMode() {
     }
   }
 }
+
+
+
+void createGrid(vector<vector<Cell>>& map, int& row, int& col) {
+  map.clear();
+
+  cout << "Enter the number of the rows: ";
+  cin >> row;
+  map.resize(row);
+  cout << "Enter the number of the columns: ";
+  cin >> col;
+  cout << "\n";
+  
+  for (int i = 0; i < row; i++)
+    map[i].resize(col);
+}
+
+
+
+void setEntryExit(vector<vector<Cell>>& map, Pair& entry, Pair& exit) {
+  cout << "Enter the position of the entry: \nRow: ";
+  cin >> entry.first;
+  cout << "\nCol: ";
+  cin >> entry.second;
+  cout << "\nEnter the position of the exit: \nRow: ";
+  cin >> exit.first;
+  cout << "\nCol: ";
+  cin >> exit.second;
+  cout << "\n";
+
+  map[entry.first][entry.second].SetEntry();
+  map[exit.first][exit.second].SetExit();
+}
+
 
 
 //Imprimir mapa
