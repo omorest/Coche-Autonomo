@@ -8,6 +8,7 @@ void FileReader(string file) {
   int row, col;
   int row_obstacle, col_obstacle;
   string heuristic_type = "";
+  string obstacle_mode = "";
   Pair entry, exit;
 
   ifstream is(file);
@@ -34,15 +35,23 @@ void FileReader(string file) {
   printMap(map);
 
   is >> heuristic_type;
+  is >> obstacle_mode;
 
-  while (!is.eof())
-  {
-    is >> row_obstacle >> col_obstacle;
-    if (isValidCell(row, col, row_obstacle, col_obstacle)) {
-      map[row_obstacle][col_obstacle].SetObstacle(true);
+  if (obstacle_mode == "manual") {
+    while (!is.eof())
+    {
+      is >> row_obstacle >> col_obstacle;
+      if (isValidCell(row, col, row_obstacle, col_obstacle)) {
+        map[row_obstacle][col_obstacle].SetObstacle(true);
+      }    
     }
-    
   }
+  else  if (obstacle_mode == "random") {
+    double percent = 0.0;
+    is >> percent;
+    RandomObstacles(map, row, col, percent);
+  }  
+
 
   printMap(map);
   AStar algorithm(heuristic_type);
@@ -152,13 +161,16 @@ void setEntryExit(vector<vector<Cell>>& map, Pair& entry, Pair& exit) {
 
 
 
-void RandomObstacles(vector<vector<Cell>>& map, int row, int col) {
-  double percentage = 0.0;
+void RandomObstacles(vector<vector<Cell>>& map, int row, int col, double percent) {
+  double percentage = percent;
   int obstacles_num;
   int x_random, y_random;
 
-  cout << "What percentage of obstacles do you want?\n";
-  cin >> percentage;
+  if (percent == 0.0) {
+    cout << "What percentage of obstacles do you want?\n";
+    cin >> percentage;
+  }
+  
 
   percentage = percentage/100;
   obstacles_num = row * col * percentage;

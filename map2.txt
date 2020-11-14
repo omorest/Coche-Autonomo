@@ -1,0 +1,6 @@
+50 50
+3 10
+46 39
+manhattan
+random
+30

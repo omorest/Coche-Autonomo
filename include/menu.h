@@ -11,7 +11,7 @@ void ManualMode();
 
 void createGrid(vector<vector<Cell>>& map, int& row, int& col);
 void setEntryExit(vector<vector<Cell>>& map, Pair& entry, Pair& exit);
-void RandomObstacles(vector<vector<Cell>>& map, int row, int col);
+void RandomObstacles(vector<vector<Cell>>& map, int row, int col, double percent = 0.0);
 void ManualObstacles(vector<vector<Cell>>& map, int row, int col);
 void CreateObastacles(vector<vector<Cell>>& map, int row, int col);
 void RunAlgorithm(vector<vector<Cell>>& map, Pair entry, Pair exit);
