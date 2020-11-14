@@ -33,11 +33,14 @@ Finalmente se mostrarán la cantidad de nodos expandidos, la distancia desde la 
 
 El siguiente ejemplo veremos el tipo de formato que tendrá el fichero de entrada para introducir los datos necesarios del programa.
 
+**Ejemplo modo manual obstáculos por fichero:**
+
 ```
 10 10         # Dimensiones del mapa
 2 2           # Coordenadas de entrada
 8 9           # Coordenadas de salida
 euclidean     # Función heurística escogida (euclidean o manhattan)
+manual        # Tipo de introducción de obstáculos (manual o random)
 6 6           # Coordenadas del obstáculo    
 2 3           # Coordenadas del obstáculo
 1 1           # Coordenadas del obstáculo
@@ -45,7 +48,19 @@ euclidean     # Función heurística escogida (euclidean o manhattan)
 ...           # Coordenadas del obstáculo
 ```
 
-> Puedes encontrar un fichero [map.txt](./map.txt) para poder ejecutar como ejemplo.
+**Ejemplo modo random obstáculos por fichero:**
+
+```
+10 10         # Dimensiones del mapa
+2 2           # Coordenadas de entrada
+8 9           # Coordenadas de salida
+euclidean     # Función heurística escogida (euclidean o manhattan)
+random        # Tipo de introducción de obstáculos (manual o random)
+30            # Porcentaje de obsáculos en el mapa
+```
+
+> Puedes encontrar los ficheros [map.txt](./map.txt) y [map2.txt](./map2.txt) para poder ejecutarlos como ejemplo.
+
 
 ## Modo de ejecución
 
@@ -73,7 +88,22 @@ euclidean     # Función heurística escogida (euclidean o manhattan)
   make clean
 ```
 
-## Ejemplo de visualización del proyecto
+## Ejemplo de visualización final del proyecto
 
+- **Casillas vacías:** ⬜
+- **Obstáculos:** ⬛
+- **Entrada:** 🟦
+- **Salida:** 🟥
+- **Salida y entrada final:** ❎
+- **Ruta calculada:** 🟩
+
+### Antes de calcular la ruta
+
+![mapa](./img/1.png)
+
+
+### Ruta calculada
+
+![ruta_mapa](./img/2.png)
 
 
