@@ -38,20 +38,9 @@ void FileReader(string file) {
 void ManualMode() {
   int row, col;
 	Pair entry, exit;
-	AStar algorithm("manhattan");
-
   int option;
-  bool more_obstacles;
-  int x_obs, y_obs;
-  string answer;
   vector<vector<Cell>> map;
-  string heuristic_type;
-  int option_heuristic = 0;
-  int option_obstacles = 0;
-  double percentage = 0;
-  int x_random, y_random;
-  int obstacles_num;
-  int i = 0;
+  
 
   cout << "\nWelcome!";
   while (option != 5)
@@ -77,72 +66,15 @@ void ManualMode() {
     case 2:
       setEntryExit(map, entry, exit);
       printMap(map);
-
       break;
 
     case 3:
-      do
-      {
-        cout << "Enter the way to enter obstacles:\nRandom - [1]\nManual - [2]\n";
-        cin >> option_obstacles;
-      } while (option_obstacles != 1 && option_obstacles != 2);
-
-      if (option_obstacles == 1) {
-        cout << "What percentage of obstacles do you want?\n";
-        cin >> percentage;
-
-        percentage = percentage/100;
-        obstacles_num = row * col * percentage;
-
-        srand(time(NULL));
-        while ((i < obstacles_num) && (obstacles_num <= ((row * col) - 2))) {
-          x_random = (rand() % (row));
-          y_random = (rand() % (col));
-          map[x_random][y_random].SetObstacle(true);
-          i++;
-        }
-
-      }
-
-      if (option_obstacles == 2) {
-        more_obstacles = true;
-        do
-        {
-          cout << "Enter the obstacle position: \nx: ";
-          cin >> x_obs;
-          cout << "y: ";
-          cin >> y_obs;
-          cout << "\n";
-
-          map[x_obs][y_obs].SetObstacle(true);
-          do
-          {
-            cout << "Do you want to add more obstacles? y/n \n";
-            cin >> answer;
-          } while (answer != "y" && answer != "n");
-
-          if (answer == "n")
-            more_obstacles = false;
-        } while (more_obstacles);
-      }
-
+      CreateObastacles(map, row, col);
       printMap(map);
       break;
 
     case 4:
-      do
-      {
-        cout << "Enter the heuristic you want to use:\nManhattan - [1]\nEuclidean - [2]\n";
-        cin >> option_heuristic;
-        if (option_heuristic == 1)
-          heuristic_type = "manhattan";
-        if (option_heuristic == 2)
-          heuristic_type = "euclidean";
-      } while (option_heuristic != 1 && option_heuristic != 2);
-
-      algorithm.setHeuristic(heuristic_type);
-      algorithm.aStarSearch(map, entry, exit);
-
+      RunAlgorithm(map, entry, exit);
       break;
 
     case 5:
@@ -189,6 +121,94 @@ void setEntryExit(vector<vector<Cell>>& map, Pair& entry, Pair& exit) {
 }
 
 
+
+void RandomObstacles(vector<vector<Cell>>& map, int row, int col) {
+  double percentage = 0.0;
+  int obstacles_num;
+  int x_random, y_random;
+
+  cout << "What percentage of obstacles do you want?\n";
+  cin >> percentage;
+
+  percentage = percentage/100;
+  obstacles_num = row * col * percentage;
+
+  srand(time(NULL));
+
+  int i = 0;
+  while ((i < obstacles_num) && (obstacles_num <= ((row * col) - 2))) {
+    x_random = (rand() % (row));
+    y_random = (rand() % (col));
+    map[x_random][y_random].SetObstacle(true);
+    i++;
+  }
+}
+
+
+
+void ManualObstacles(vector<vector<Cell>>& map, int row, int col) {
+  bool more_obstacles = true;
+  int x_obs, y_obs;
+  string answer;
+
+  do
+  {
+    cout << "Enter the obstacle position: \nx: ";
+    cin >> x_obs;
+    cout << "y: ";
+    cin >> y_obs;
+    cout << "\n";
+
+    map[x_obs][y_obs].SetObstacle(true);
+    do
+    {
+      cout << "Do you want to add more obstacles? y/n \n";
+      cin >> answer;
+    } while (answer != "y" && answer != "n");
+
+    if (answer == "n")
+      more_obstacles = false;
+  } while (more_obstacles);
+}
+
+
+
+void CreateObastacles(vector<vector<Cell>>& map, int row, int col) {
+  int option_obstacles = 0;
+
+  do
+  {
+    cout << "Enter the way to enter obstacles:\nRandom - [1]\nManual - [2]\n";
+    cin >> option_obstacles;
+  } while (option_obstacles != 1 && option_obstacles != 2);
+
+  if (option_obstacles == 1) 
+    RandomObstacles(map, row, col);
+
+  if (option_obstacles == 2)
+    ManualObstacles(map, row, col);
+}
+
+
+
+void RunAlgorithm(vector<vector<Cell>>& map, Pair entry, Pair exit) {
+  AStar algorithm("manhattan");
+  string heuristic_type;
+  int option_heuristic = 0;
+
+  do
+  {
+    cout << "Enter the heuristic you want to use:\nManhattan - [1]\nEuclidean - [2]\n";
+    cin >> option_heuristic;
+    if (option_heuristic == 1)
+      heuristic_type = "manhattan";
+    if (option_heuristic == 2)
+      heuristic_type = "euclidean";
+  } while (option_heuristic != 1 && option_heuristic != 2);
+
+  algorithm.setHeuristic(heuristic_type);
+  algorithm.aStarSearch(map, entry, exit);
+}
 
 //Imprimir mapa
 void printMap(vector<vector<Cell>> map) {
