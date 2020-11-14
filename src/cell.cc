@@ -70,7 +70,7 @@ string Cell::GetEmoji() {
 
 void Cell::SetEntry() {
     is_entry_ = true;
-    emoji_ = "🟩";
+    emoji_ = "🟦";
 }
 
 
@@ -81,7 +81,11 @@ void Cell::SetExit() {
 
 
 
-void Cell::SetCellInPath(bool isInPath) {
-  if (isInPath)
-    emoji_ = "🟦";
+void Cell::SetCellInPath() {
+  if (!is_entry_ && !is_exit_)
+    emoji_ = "🟩";
+
+  if (is_entry_ || is_exit_) {
+    emoji_ = "❎";
+  }
 }

@@ -32,10 +32,6 @@ public:
     emoji_ = "⬜";
   };
 
-  //~Cell() {
-  //  delete();
-  //};
-
   int GetParentActualX();
   int GetParentActualY();
 
@@ -53,5 +49,5 @@ public:
   void SetObstacle(bool new_obstacle);
   void SetEntry();
   void SetExit();
-  void SetCellInPath(bool isInPath);
+  void SetCellInPath();
 };

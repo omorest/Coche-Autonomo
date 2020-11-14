@@ -71,7 +71,7 @@ stack<Pair> AStar::TracePath(vector<vector<Cell>>& map, Pair dest) {
 	{
 		pair<int, int> p = Path.top();
 		Path.pop();
-    map[p.first][p.second].SetCellInPath(true);
+    map[p.first][p.second].SetCellInPath();
 		cout << "-> (" << p.first << ", " << p.second << ")";
 	}
 
