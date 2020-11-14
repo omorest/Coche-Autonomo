@@ -47,34 +47,33 @@ void AStar::setHeuristic(string heuristicType) {
 
 
 
-stack<Pair> AStar::TracePath(vector<vector<Cell>>& map, Pair dest) {
+
+void AStar::TracePath(vector<vector<Cell>>& map, Pair dest) {
 	cout << "\nThe Path is ";
 	int row = dest.first;
 	int col = dest.second;
 
-	stack<Pair> Path;
 	stack<Pair> Path_copy;
 
 	while (!(map[row][col].GetParentActualX() == row && map[row][col].GetParentActualY() == col))
 	{
-		Path.push(make_pair(row, col));
+		Path_copy.push(make_pair(row, col));
 		int temp_row = map[row][col].GetParentActualX();
 		int temp_col = map[row][col].GetParentActualY();
 		row = temp_row;
 		col = temp_col;
 	}
 
-	Path.push(make_pair(row, col));
-	Path_copy = Path; 
-	while (!Path.empty())
+	Path_copy.push(make_pair(row, col));
+	path_ = Path_copy; 
+	while (!Path_copy.empty())
 	{
-		pair<int, int> p = Path.top();
-		Path.pop();
+		pair<int, int> p = Path_copy.top();
+		Path_copy.pop();
     map[p.first][p.second].SetCellInPath();
 		cout << "-> (" << p.first << ", " << p.second << ")";
 	}
 
-	return Path_copy;
 }
 
 
@@ -118,17 +117,16 @@ void AStar::aStarSearch(vector<vector<Cell>>& map, Pair src, Pair dest)
 	map[i][j].SetParentActualX(i);
 	map[i][j].SetParentActualY(j);
 
-	set<pPair> openList;
 
-	openList.insert(make_pair(0.0, make_pair(i, j)));
+	openList_.insert(make_pair(0.0, make_pair(i, j)));
 
 	bool foundDest = false;
 
-	while (!openList.empty())
+	while (!openList_.empty())
 	{
-		pPair p = *openList.begin();
+		pPair p = *openList_.begin();
 
-		openList.erase(openList.begin());
+		openList_.erase(openList_.begin());
 
 		i = p.second.first;
 		j = p.second.second;
@@ -168,7 +166,7 @@ void AStar::aStarSearch(vector<vector<Cell>>& map, Pair src, Pair dest)
 							if (map[i + fila][j + col].GetF() == FLT_MAX ||
 								map[i + fila][j + col].GetF() > fNew)
 							{
-								openList.insert(make_pair(fNew, make_pair(i + fila, j + col)));
+								openList_.insert(make_pair(fNew, make_pair(i + fila, j + col)));
 
 								map[i + fila][j + col].SetF(fNew);
 								map[i + fila][j + col].SetG(gNew);
@@ -187,4 +185,16 @@ void AStar::aStarSearch(vector<vector<Cell>>& map, Pair src, Pair dest)
 		cout << "Failed to find the Destination Cell\n";
 
 	return;
+}
+
+
+
+int AStar::getOpentListSize() const {
+	return openList_.size();
+}
+
+
+
+int AStar::getPathSize() const {
+	return path_.size();
 }

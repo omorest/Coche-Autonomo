@@ -3,6 +3,7 @@
 
 #include "../include/menu.h"
 
+
 void FileReader(string file) {
   int row, col;
   int row_obstacle, col_obstacle;
@@ -46,6 +47,7 @@ void FileReader(string file) {
   printMap(map);
   AStar algorithm(heuristic_type);
   algorithm.aStarSearch(map, entry, exit);
+  showExperimentalTable(algorithm);
 
   printMap(map);
   
@@ -242,6 +244,8 @@ void RunAlgorithm(vector<vector<Cell>>& map, Pair entry, Pair exit) {
 
   algorithm.setHeuristic(heuristic_type);
   algorithm.aStarSearch(map, entry, exit);
+
+  showExperimentalTable(algorithm);
 }
 
 
@@ -268,3 +272,8 @@ void printMap(vector<vector<Cell>> map) {
 }
 
 
+
+void showExperimentalTable(const AStar& algorithm) {
+  cout << "OPEN LIST SIZE " << algorithm.getOpentListSize() << endl;
+  cout << "PATH SIZE" << algorithm.getPathSize() << endl;
+}
