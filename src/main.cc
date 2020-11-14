@@ -49,6 +49,7 @@ int main(int argc, char *argv[])
 			switch (option)
 			{
 			case 1:
+        map.clear();
 				cout << "Enter the number of the rows: ";
 				cin >> row;
 				map.resize(row);
@@ -146,7 +147,6 @@ int main(int argc, char *argv[])
 				algorithm.setHeuristic(heuristic_type);
 				algorithm.aStarSearch(map, entry, exit);
 
-
 				break;
 
 			case 5:
@@ -158,26 +158,4 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-
-	//Cell grid[ROW][COL];
-	//grid[0][3].SetObstacle(true);
-	//grid[8][9].SetObstacle(true);
-	//grid[2][3].SetObstacle(true);
-	//grid[0][0].SetObstacle(true);
-
-	//Pair src = make_pair(0, 0);
-	//
-	//Pair dest = make_pair(9, 9);
 }
-
-
-// void printMap(vector<vector<Cell>> map) {
-//   cout << endl << endl;
-// 	for (int i = 0; i < map.size(); i++) {
-// 	  for (int j = 0; j < map[i].size(); j++) {
-// 		cout << map[i][j].GetEmoji();
-// 	  }
-// 	  cout << endl;
-// 	}
-//   cout << endl;
-// }
