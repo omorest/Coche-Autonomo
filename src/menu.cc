@@ -14,8 +14,14 @@ void FileReader(string file) {
 
   is >> entry.first >> entry.second;
   is >> exit.first >> exit.second;
-  map[entry.first][entry.second].SetEntry();
-  map[exit.first][exit.second].SetExit();
+
+  if (isValidCell(row, col, entry.first, entry.second)) {
+    map[entry.first][entry.second].SetEntry();
+  }
+
+  if (isValidCell(row, col, exit.first, exit.second)) {
+    map[exit.first][exit.second].SetExit();
+  }
 
   printMap(map);
 
@@ -24,7 +30,10 @@ void FileReader(string file) {
   while (!is.eof())
   {
     is >> row_obstacle >> col_obstacle;
-    map[row_obstacle][col_obstacle].SetObstacle(true);
+    if (isValidCell(row, col, row_obstacle, col_obstacle)) {
+      map[row_obstacle][col_obstacle].SetObstacle(true);
+    }
+    
   }
 
   printMap(map);
@@ -94,17 +103,29 @@ void createGrid(vector<vector<Cell>>& map, int& row, int& col) {
 
 
 void setEntryExit(vector<vector<Cell>>& map, Pair& entry, Pair& exit) {
-  cout << "Enter the position of the entry: \nRow: ";
-  cin >> entry.first;
-  cout << "\nCol: ";
-  cin >> entry.second;
-  cout << "\nEnter the position of the exit: \nRow: ";
-  cin >> exit.first;
-  cout << "\nCol: ";
-  cin >> exit.second;
-  cout << "\n";
+
+  do
+  {
+    cout << "Enter the position of the entry: \nRow: ";
+    cin >> entry.first;
+    cout << "Col: ";
+    cin >> entry.second;
+    cout << "\n";
+
+  } while(!isValidCell(map.size(), map[0].size(), entry.first, entry.second));
 
   map[entry.first][entry.second].SetEntry();
+
+  do
+  {
+  cout << "\nEnter the position of the exit: \nRow: ";
+  cin >> exit.first;
+  cout << "Col: ";
+  cin >> exit.second;
+  cout << "\n";
+    
+  } while(!isValidCell(map.size(), map[0].size(), exit.first, exit.second));
+
   map[exit.first][exit.second].SetExit();
 }
 
@@ -125,9 +146,16 @@ void RandomObstacles(vector<vector<Cell>>& map, int row, int col) {
 
   int i = 0;
   while ((i < obstacles_num) && (obstacles_num <= ((row * col) - 2))) {
-    x_random = (rand() % (row));
-    y_random = (rand() % (col));
+
+    do
+    {
+      x_random = (rand() % (row));
+      y_random = (rand() % (col));      
+    } while(!isValidCell(row, col, x_random, y_random) && map[x_random][y_random].isEntry()
+            && map[x_random][y_random].isExit() && map[x_random][y_random].isObstacle());
+    
     map[x_random][y_random].SetObstacle(true);
+
     i++;
   }
 }
@@ -141,13 +169,17 @@ void ManualObstacles(vector<vector<Cell>>& map, int row, int col) {
 
   do
   {
-    cout << "Enter the obstacle position: \nx: ";
-    cin >> x_obs;
-    cout << "y: ";
-    cin >> y_obs;
-    cout << "\n";
+    do
+    {  
+      cout << "Enter the obstacle position: \nx: ";
+      cin >> x_obs;
+      cout << "y: ";
+      cin >> y_obs;
+      cout << "\n";
+    } while(!isValidCell(row, col, x_obs, y_obs));
 
-    map[x_obs][y_obs].SetObstacle(true);
+    map[x_obs][y_obs].SetObstacle(true);  
+
     do
     {
       cout << "Do you want to add more obstacles? y/n \n";
@@ -198,6 +230,15 @@ void RunAlgorithm(vector<vector<Cell>>& map, Pair entry, Pair exit) {
   algorithm.aStarSearch(map, entry, exit);
 }
 
+
+bool isValidCell(int row_map, int col_map, int row, int col) {
+  if ((row >= 0) && (row < row_map) && (col >= 0) && (col < col_map)) {
+    return true;
+  }
+  
+  cout << "This position is out of range" << endl;
+  return false;  
+}
 
 
 //Imprimir mapa

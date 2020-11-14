@@ -38,6 +38,8 @@ public:
   double GetG();
   double GetF();
   double GetH();
+  bool isEntry();
+  bool isExit();
   bool isObstacle();
   string GetEmoji();
 

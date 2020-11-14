@@ -25,6 +25,17 @@ double Cell::GetH() {
 }
 
 
+
+bool Cell::isEntry() {
+  return is_entry_;
+}
+
+bool Cell::isExit() {
+  return is_exit_;
+}
+
+
+
 void Cell::SetParentActualX(int new_parent_i) {
     parent_x_ = new_parent_i;
 }
@@ -53,6 +64,7 @@ void Cell::SetH(double new_h) {
 bool Cell::isObstacle() {
     return obstacle_;
 }
+
 
 
 void Cell::SetObstacle(bool new_obstacle) {

@@ -1,8 +1,5 @@
 #pragma once
 
-#define ROW 200
-#define COL 200
-
 #include "cell.h"
 
 #include <bits/stdc++.h>
@@ -26,7 +23,7 @@ public:
 	AStar() {};
 	AStar(string heuristic);
 
-	bool isValid(int row, int col);
+	bool isValid(const vector<vector<Cell>>& map, int row, int col);
 	bool isBlocked(vector<vector<Cell>> map, int row, int col);
 	bool isDestination(int row, int col, Pair dest);
 	double calculateHValue(int row, int col, Pair dest);

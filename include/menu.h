@@ -11,4 +11,5 @@ void RandomObstacles(vector<vector<Cell>>& map, int row, int col);
 void ManualObstacles(vector<vector<Cell>>& map, int row, int col);
 void CreateObastacles(vector<vector<Cell>>& map, int row, int col);
 void RunAlgorithm(vector<vector<Cell>>& map, Pair entry, Pair exit);
+bool isValidCell(int row_map, int col_map, int row, int col);
 void printMap(vector<vector<Cell>> map);

@@ -8,9 +8,8 @@ AStar::AStar(string heuristicType) {
 
 
 
-
-bool AStar::isValid(int row, int col) {
-	return (row >= 0) && (row < ROW) && (col >= 0) && (col < COL);
+bool AStar::isValid(const vector<vector<Cell>>& map, int row, int col) {
+	return (row >= 0) && (row < map.size()) && (col >= 0) && (col < map[0].size());
 }
 
 
@@ -82,12 +81,15 @@ stack<Pair> AStar::TracePath(vector<vector<Cell>>& map, Pair dest) {
 
 void AStar::aStarSearch(vector<vector<Cell>>& map, Pair src, Pair dest)
 {
-	if (isValid(src.first, src.second) == false) {
+  const int ROW = map.size();
+  const int COL = map[0].size();
+
+	if (isValid(map, src.first, src.second) == false) {
 		cout << "Source is invalid\n";
 		return;
 	}
 
-	if (isValid(dest.first, dest.second) == false) {
+	if (isValid(map, dest.first, dest.second) == false) {
 		cout << "Destination is invalid\n";
 		return;
 	}
@@ -143,7 +145,7 @@ void AStar::aStarSearch(vector<vector<Cell>>& map, Pair src, Pair dest)
             || (i + fila == i + 1 && j + col == j) 
             || (i + fila == i && j + col == j - 1))
 				{
-					if (isValid(i + fila, j + col) == true)
+					if (isValid(map, i + fila, j + col) == true)
 					{
 						if (isDestination(i + fila, j + col, dest) == true) {
 							map[i + fila][j + col].SetParentActualX(i);
