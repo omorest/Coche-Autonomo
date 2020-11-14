@@ -1,3 +1,6 @@
+#define MAX_ROW 200
+#define MAX_COL 200
+
 #include "../include/menu.h"
 
 void FileReader(string file) {
@@ -9,12 +12,16 @@ void FileReader(string file) {
   ifstream is(file);
   is >> row >> col;
 
+  if (row > MAX_ROW  &&  col > MAX_COL) {
+    cout << "The introduced dimensions for map are out of the maximum range!\n";
+
+    return;
+  }
+
   vector<vector<Cell>> map(row, vector<Cell>(col));
   printMap(map);
-
   is >> entry.first >> entry.second;
   is >> exit.first >> exit.second;
-
   if (isValidCell(row, col, entry.first, entry.second)) {
     map[entry.first][entry.second].SetEntry();
   }
@@ -37,12 +44,12 @@ void FileReader(string file) {
   }
 
   printMap(map);
-
-  is.close();
   AStar algorithm(heuristic_type);
   algorithm.aStarSearch(map, entry, exit);
 
   printMap(map);
+  
+  is.close();
 }
 
 
@@ -89,13 +96,20 @@ void ManualMode() {
 
 
 void createGrid(vector<vector<Cell>>& map, int& row, int& col) {
-  cout << "Enter the number of the rows: ";
-  cin >> row;
+  do {
+    cout << "Enter the number of the rows (MAX 200 rows): ";
+    cin >> row;
+  } while (row > MAX_ROW);
+
   map.resize(row);
-  cout << "Enter the number of the columns: ";
-  cin >> col;
-  cout << "\n";
+
+  do {
+    cout << "Enter the number of the columns (MAX 200 cols): ";
+    cin >> col;
+  } while (col > MAX_COL);
   
+  cout << "\n";
+
   for (int i = 0; i < row; i++)
     map[i].resize(col);
 }
