@@ -49,4 +49,5 @@ public:
   void SetObstacle(bool new_obstacle);
   void SetEntry();
   void SetExit();
+  void SetCellInPath(bool isInPath);
 };

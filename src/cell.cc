@@ -78,3 +78,10 @@ void Cell::SetExit() {
     is_exit_ = true;
     emoji_ = "🟥";
 }
+
+
+
+void Cell::SetCellInPath(bool isInPath) {
+  if (isInPath)
+    emoji_ = "🟦";
+}

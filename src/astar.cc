@@ -48,7 +48,7 @@ void AStar::setHeuristic(string heuristicType) {
 
 
 
-stack<Pair> AStar::TracePath(vector<vector<Cell>> map, Pair dest) {
+stack<Pair> AStar::TracePath(vector<vector<Cell>>& map, Pair dest) {
 	cout << "\nThe Path is ";
 	int row = dest.first;
 	int col = dest.second;
@@ -71,6 +71,7 @@ stack<Pair> AStar::TracePath(vector<vector<Cell>> map, Pair dest) {
 	{
 		pair<int, int> p = Path.top();
 		Path.pop();
+    map[p.first][p.second].SetCellInPath(true);
 		cout << "-> (" << p.first << ", " << p.second << ")";
 	}
 
@@ -79,7 +80,7 @@ stack<Pair> AStar::TracePath(vector<vector<Cell>> map, Pair dest) {
 
 
 
-void AStar::aStarSearch(vector<vector<Cell>> map, Pair src, Pair dest)
+void AStar::aStarSearch(vector<vector<Cell>>& map, Pair src, Pair dest)
 {
 	if (isValid(src.first, src.second) == false) {
 		cout << "Source is invalid\n";

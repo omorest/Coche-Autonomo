@@ -30,7 +30,7 @@ public:
 	bool isBlocked(vector<vector<Cell>> map, int row, int col);
 	bool isDestination(int row, int col, Pair dest);
 	double calculateHValue(int row, int col, Pair dest);
-	stack<Pair> TracePath(vector<vector<Cell>> map, Pair dest);
-	void aStarSearch(vector<vector<Cell>> map, Pair src, Pair dest);
+	stack<Pair> TracePath(vector<vector<Cell>>& map, Pair dest);
+	void aStarSearch(vector<vector<Cell>>& map, Pair src, Pair dest);
 	void setHeuristic(string heuristicType);
 };

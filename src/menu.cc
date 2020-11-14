@@ -74,6 +74,7 @@ void ManualMode() {
 
     case 4:
       RunAlgorithm(map, entry, exit);
+      printMap(map);
       break;
 
     case 5:
