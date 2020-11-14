@@ -1,20 +1,22 @@
 #include "../include/astar.h"
 #include "../include/menu.h"
+#include <string>
 
 // void printMap(vector<vector<Cell>> map);
 int main(int argc, char *argv[])
 {
-	int row, col;
-  string file = argv[1];
+	int row, col;  
 	Pair entry, exit;
 	AStar algorithm("manhattan");
 
 	//Entrada de datos por fichero
-	if (argc == 2)
+	if (argc == 2) {
+    string file = argv[1];
     FileReader(file, row, col);
+  }
 
 	//Entrada de datos manual
-	if (argc == 1)
+	else if (argc == 1)
 	{
 		int option;
 		bool more_obstacles;
