@@ -46,8 +46,13 @@ void FileReader(string file) {
 
   printMap(map);
   AStar algorithm(heuristic_type);
+
+  auto start = high_resolution_clock::now();
   algorithm.aStarSearch(map, entry, exit);
-  showExperimentalTable(algorithm);
+  auto stop = high_resolution_clock::now();
+  auto duration = duration_cast<milliseconds>(stop - start);
+
+  showExperimentalTable(algorithm, duration.count());
 
   printMap(map);
   
@@ -243,9 +248,13 @@ void RunAlgorithm(vector<vector<Cell>>& map, Pair entry, Pair exit) {
   } while (option_heuristic != 1 && option_heuristic != 2);
 
   algorithm.setHeuristic(heuristic_type);
-  algorithm.aStarSearch(map, entry, exit);
 
-  showExperimentalTable(algorithm);
+  auto start = high_resolution_clock::now();
+  algorithm.aStarSearch(map, entry, exit);
+  auto stop = high_resolution_clock::now();
+  auto duration = duration_cast<milliseconds>(stop - start);
+
+  showExperimentalTable(algorithm, duration.count());
 }
 
 
@@ -273,7 +282,8 @@ void printMap(vector<vector<Cell>> map) {
 
 
 
-void showExperimentalTable(const AStar& algorithm) {
-  cout << "OPEN LIST SIZE " << algorithm.getOpentListSize() << endl;
-  cout << "PATH SIZE" << algorithm.getPathSize() << endl;
+void showExperimentalTable(const AStar& algorithm, double duration) {
+  cout << endl << "\nOPEN LIST SIZE: " << algorithm.getOpentListSize() << endl;
+  cout << "PATH SIZE: " << algorithm.getPathSize() << endl;
+  cout << "TIEMPO: " << duration/1000 << " s" << endl;
 }
