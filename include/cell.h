@@ -20,8 +20,7 @@ private:
   string emoji_;
   
 public:
-  Cell()
-  {
+  Cell() {
     parent_x_ = -1;
     parent_y_ = -1;
     g_ = FLT_MAX;

@@ -20,8 +20,6 @@ typedef pair<double, pair<int, int>> pPair;
 class AStar
 {
 private:
-	//int row_;
-	//int col_;
 	string heuristic_;
 
 public:
