@@ -41,7 +41,6 @@ void ManualMode() {
   int option;
   vector<vector<Cell>> map;
   
-
   cout << "\nWelcome!";
   while (option != 5)
   {
