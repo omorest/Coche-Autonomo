@@ -1,46 +1,20 @@
 #include "../include/astar.h"
+#include "../include/menu.h"
 
-void printMap(vector<vector<Cell>> map);
+// void printMap(vector<vector<Cell>> map);
 int main(int argc, char *argv[])
 {
 	int row, col;
-	int row_obstacle, col_obstacle;
+  string file = argv[1];
 	Pair entry, exit;
 	AStar algorithm("manhattan");
 
 	//Entrada de datos por fichero
 	if (argc == 2)
-	{
-		ifstream is(argv[1]);
-		is >> row >> col;
-
-		vector<vector<Cell>> map(row, vector<Cell>(col));
-    printMap(map);
-
-		is >> entry.first >> entry.second;
-		is >> exit.first >> exit.second;
-    map[entry.first][entry.second].SetEntry();
-    map[exit.first][exit.second].SetExit();
-
-    printMap(map);
-
-		while (!is.eof())
-		{
-			is >> row_obstacle >> col_obstacle;
-			map[row_obstacle][col_obstacle].SetObstacle(true);
-		}
-
-    printMap(map);
-
-		is.close();
-		AStar algorithm("euclidean");
-		algorithm.aStarSearch(map, entry, exit);
-
-    printMap(map);
-	}
+    FileReader(file, row, col);
 
 	//Entrada de datos manual
-	else if (argc == 1)
+	if (argc == 1)
 	{
 		int option;
 		bool more_obstacles;
@@ -195,15 +169,13 @@ int main(int argc, char *argv[])
 }
 
 
-void printMap(vector<vector<Cell>> map) {
-  cout << endl << endl;
-	for (int i = 0; i < map.size(); i++) {
-	  for (int j = 0; j < map[i].size(); j++) {
-		cout << map[i][j].GetEmoji();
-	  }
-	  cout << endl;
-	}
-  cout << endl;
-	
-	
-}
+// void printMap(vector<vector<Cell>> map) {
+//   cout << endl << endl;
+// 	for (int i = 0; i < map.size(); i++) {
+// 	  for (int j = 0; j < map[i].size(); j++) {
+// 		cout << map[i][j].GetEmoji();
+// 	  }
+// 	  cout << endl;
+// 	}
+//   cout << endl;
+// }
