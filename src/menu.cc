@@ -67,7 +67,7 @@ void ManualMode() {
   char option;
   vector<vector<Cell>> map;
   
-  cout << "\nWelcome!";
+  cout << "\n\033[1;34mWelcome!\033[0m\n";
   while (option != 'n')
   {
     for (int i = 0; i < map.size(); i++)
@@ -75,25 +75,25 @@ void ManualMode() {
     map.clear();   
 
     cout << "\n------------------------------------------------------------------------------\n";
-    cout << "\nPlease enter some information of the map:\n";
-    cout << "1. Dimensions\n";
+    cout << "\n\033[1;36mPlease enter some information of the map:\033[0m\n";
+    cout << "\n\033[1;36m1. Dimensions\033[0m\n";
     createGrid(map, row, col);
     printMap(map);
 
-    cout << "2. Entry and exit\n";
+    cout << "\033[1;36m2. Entry and exit\033[0m\n";
     setEntryExit(map, entry, exit);
     printMap(map);
 
-    cout << "3. Set obstacles\n";
+    cout << "\033[1;36m3. Set obstacles\033[0m\n";
     CreateObastacles(map, row, col);
     printMap(map);
 
-    cout << "4. A* Algorithm\n";
+    cout << "\033[1;36m4. A* Algorithm\033[0m\n";
     RunAlgorithm(map, entry, exit);
     printMap(map);
 
     
-    cout << "Do you want to repeat the process? [y/n]\n";
+    cout << "\033[1;36mDo you want to repeat the process? [y/n]\033[0m\n";
     cin >> option;
     cout << "\n";
 
