@@ -3,6 +3,7 @@
 void FileReader(string file) {
   int row, col;
   int row_obstacle, col_obstacle;
+  string heuristic_type = "";
   Pair entry, exit;
 
   ifstream is(file);
@@ -18,6 +19,8 @@ void FileReader(string file) {
 
   printMap(map);
 
+  is >> heuristic_type;
+
   while (!is.eof())
   {
     is >> row_obstacle >> col_obstacle;
@@ -27,7 +30,7 @@ void FileReader(string file) {
   printMap(map);
 
   is.close();
-  AStar algorithm("euclidean");
+  AStar algorithm(heuristic_type);
   algorithm.aStarSearch(map, entry, exit);
 
   printMap(map);
@@ -44,6 +47,10 @@ void ManualMode() {
   cout << "\nWelcome!";
   while (option != 'n')
   {
+    for (int i = 0; i < map.size(); i++)
+      map[i].clear();
+    map.clear();   
+
     cout << "\n------------------------------------------------------------------------------\n";
     cout << "\nPlease enter some information of the map:\n";
     cout << "1. Dimensions\n";
@@ -73,8 +80,6 @@ void ManualMode() {
 
 
 void createGrid(vector<vector<Cell>>& map, int& row, int& col) {
-  map.clear();
-
   cout << "Enter the number of the rows: ";
   cin >> row;
   map.resize(row);
@@ -192,8 +197,6 @@ void RunAlgorithm(vector<vector<Cell>>& map, Pair entry, Pair exit) {
   algorithm.setHeuristic(heuristic_type);
   algorithm.aStarSearch(map, entry, exit);
 }
-
-
 
 
 
