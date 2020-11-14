@@ -38,52 +38,35 @@ void FileReader(string file) {
 void ManualMode() {
   int row, col;
 	Pair entry, exit;
-  int option;
+  char option;
   vector<vector<Cell>> map;
   
   cout << "\nWelcome!";
-  while (option != 5)
+  while (option != 'n')
   {
     cout << "\n------------------------------------------------------------------------------\n";
     cout << "\nPlease enter some information of the map:\n";
     cout << "1. Dimensions\n";
+    createGrid(map, row, col);
+    printMap(map);
+
     cout << "2. Entry and exit\n";
+    setEntryExit(map, entry, exit);
+    printMap(map);
+
     cout << "3. Set obstacles\n";
+    CreateObastacles(map, row, col);
+    printMap(map);
+
     cout << "4. A* Algorithm\n";
-    cout << "5. Exit\n";
-    cout << "Enter the option: ";
+    RunAlgorithm(map, entry, exit);
+    printMap(map);
+
+    
+    cout << "Do you want to repeat the process? [y/n]\n";
     cin >> option;
     cout << "\n";
 
-    switch (option)
-    {
-    case 1:
-      createGrid(map, row, col);
-      printMap(map);
-      break;
-
-    case 2:
-      setEntryExit(map, entry, exit);
-      printMap(map);
-      break;
-
-    case 3:
-      CreateObastacles(map, row, col);
-      printMap(map);
-      break;
-
-    case 4:
-      RunAlgorithm(map, entry, exit);
-      printMap(map);
-      break;
-
-    case 5:
-      exit;
-      break;
-
-    default:
-      cout << "Introduce a valid option: 1, 2, 3, 4, 5.\n";
-    }
   }
 }
 
@@ -210,6 +193,10 @@ void RunAlgorithm(vector<vector<Cell>>& map, Pair entry, Pair exit) {
   algorithm.aStarSearch(map, entry, exit);
 }
 
+
+
+
+
 //Imprimir mapa
 void printMap(vector<vector<Cell>> map) {
   cout << endl << endl;
@@ -221,3 +208,5 @@ void printMap(vector<vector<Cell>> map) {
 	}
   cout << endl;
 }
+
+

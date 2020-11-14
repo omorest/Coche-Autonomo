@@ -32,6 +32,10 @@ public:
     emoji_ = "⬜";
   };
 
+  //~Cell() {
+  //  delete();
+  //};
+
   int GetParentActualX();
   int GetParentActualY();
 
