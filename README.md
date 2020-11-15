@@ -59,7 +59,7 @@ random        # Tipo de introducción de obstáculos (manual o random)
 30            # Porcentaje de obsáculos en el mapa
 ```
 
-> Puedes encontrar los ficheros [map.txt](./map.txt) y [map2.txt](./map2.txt) para poder ejecutarlos como ejemplo.
+> En la carpeta **[files_map](./files_map/)** puedes encontrar ficheros como [map.txt](./files_map/map.txt) , [map2.txt](./files_map/map2.txt) y muchos más para poder ejecutarlos como ejemplo.
 
 
 ## Modo de ejecución
@@ -73,7 +73,7 @@ random        # Tipo de introducción de obstáculos (manual o random)
 ### Ejecución del programa con un fichero
 
 ```console
-  ./main map.txt
+  ./main files_map/map.txt
 ```
 
 ### Ejecución del programa en modo manual
