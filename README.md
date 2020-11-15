@@ -73,13 +73,13 @@ random        # Tipo de introducción de obstáculos (manual o random)
 ### Ejecución del programa con un fichero
 
 ```console
-  ./main files_map/map.txt
+  ./bin/main files_map/map.txt
 ```
 
 ### Ejecución del programa en modo manual
 
 ```console
-  ./main
+  ./bin/main
 ```
 
 ### Limpieza de los objetos creados

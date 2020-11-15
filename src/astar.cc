@@ -37,6 +37,8 @@ double AStar::calculateHValue(int row, int col, Pair dest) {
 
 	else if (heuristic_ == "euclidean")
 		return ((double)sqrt( (row - dest.first) * (row - dest.first) +  (col - dest.second) * (col - dest.second)));
+
+	return 0.0;
 }
 
 
