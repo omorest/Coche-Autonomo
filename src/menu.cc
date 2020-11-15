@@ -184,8 +184,9 @@ void RandomObstacles(vector<vector<Cell>>& map, int row, int col, double percent
     {
       x_random = (rand() % (row));
       y_random = (rand() % (col));      
-    } while(!isValidCell(row, col, x_random, y_random) && map[x_random][y_random].isEntry()
-            && map[x_random][y_random].isExit() && map[x_random][y_random].isObstacle());
+
+    } while(!isValidCell(row, col, x_random, y_random) || map[x_random][y_random].isEntry()
+            || map[x_random][y_random].isExit() || map[x_random][y_random].isObstacle());
     
     map[x_random][y_random].SetObstacle(true);
 
